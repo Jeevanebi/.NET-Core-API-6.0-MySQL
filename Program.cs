@@ -1,7 +1,9 @@
 using APIService.Data;
 using APIService.Repository;
 using APIService.Service;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +15,12 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseMySql("name = APIServiceCon", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.31-mysql")));
+
+builder.Services.AddAuthentication(x =>
+{
+x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+});
 
 builder.Services.AddScoped<IAuthService,AuthService>();
 builder.Services.AddScoped<IUserService,UserService>();

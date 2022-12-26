@@ -19,11 +19,11 @@ namespace APIService.Service
         public User GetUserbyId(int id) => _context.Users.Find(id); 
 
 
-        public User PostUser(User user)
+        public User PostUser(User create)
         {
-            _context.Users.Add(user);
+            _context.Users.Add(create);
             _context.SaveChangesAsync();
-            return user;
+            return create;
         }
 
         public void DeleteUser(User user)

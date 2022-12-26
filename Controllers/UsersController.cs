@@ -28,7 +28,7 @@ namespace APIService.Controllers
         // GET: api/Users
 
         [HttpGet]
-        [Authorize(Roles ="Admin")]
+        [Authorize(Roles = "Admin")]
         public IActionResult GetUsers()
         {
             var AllUser =  _user.GetUsers();
@@ -84,7 +84,7 @@ namespace APIService.Controllers
         // POST: api/Users
         [HttpPost]
         [Authorize(Roles = "Admin, Guest")]
-        public IActionResult PostUser([FromBody]User user)
+        public IActionResult PostUser([FromBody] User user)
         {
             var createUser = _user.PostUser(user);
             return CreatedAtAction("GetUser", new { id = user.Userid }, createUser);

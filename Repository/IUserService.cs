@@ -8,7 +8,7 @@ namespace APIService.Repository
         IEnumerable<User> GetUsers();
         User GetUserbyId(int id);
         void PutUser(int id, User user);
-        User PostUser(User user);
+        User PostUser(User create);
         void DeleteUser(User user);
 
         public bool IsExist(int id);
