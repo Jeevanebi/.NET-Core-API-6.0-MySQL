@@ -1,17 +1,23 @@
-﻿using APIService.Models;
+﻿using APIService.Data;
+using APIService.Models;
 using APIService.Repository;
+using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
+using System.IO.Compression;
 
 namespace APIService.Service
 {
     public class FileService : IFileService
     {
-        private readonly WebHostBuilder _webHostBuilder;
 
-        public FileService(WebHostBuilder webHostBuilder)
+        private readonly ApplicationDbContext _context;
+
+        public FileService(ApplicationDbContext context)
         {
-            _webHostBuilder = webHostBuilder;
+            
+            _context = context;
         }
         public Task DeleteFile(string path)
         {
@@ -22,15 +28,56 @@ namespace APIService.Service
         {
             throw new NotImplementedException();
         }
+            
 
-
-        public string uploadFile(Userfile fileObj)
+        public Userfile uploadFile(CreateFile fileObj)
         {
+            //var fileDataByte = ReadFile(fileObj);
 
-            _context.Userfiles.Add(userfile);
-            _context.SaveChangesAsync();
+            //_context.Userfiles.Add(fileDataByte);
+
+            // _context.SaveChangesAsync();
+
+            //return fileDataByte;
+
+            return null;
         }
 
-     
+        public Userfile uploadFile(Userfile fileObj)
+        {
+            throw new NotImplementedException();
+        }
+
+        //protected byte[] ReadFile(CreateFile fileObj) 
+        //{
+        //    string untrustedFileName = Path.GetFileName(fileObj.FileData);
+
+
+        //    using (var memoryStream = new MemoryStream())
+        //    {
+        //        fileObj.FileData.FormFile.CopyTo(memoryStream);
+
+        //        // Upload the file if less than 2 MB
+        //        if (memoryStream.Length < 2097152)
+        //        {
+        //            var file = new CreateFile()
+        //            {
+        //                Filename = untrustedFileName,
+        //                FileData = memoryStream.ToArray()
+        //            };
+
+        //            _context.Userfiles.Add(file);
+
+        //            _context.SaveChangesAsync();
+
+        //            return file;
+        //        }
+        //        else
+        //        {
+        //           return "The file is too large.";
+        //        }
+        //    }
+        //}
     }
+
 }

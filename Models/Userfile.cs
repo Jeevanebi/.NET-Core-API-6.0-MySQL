@@ -14,7 +14,6 @@ namespace APIService.Models
         public string? FileData { get; set; }
         public string? CreatedAt { get; set; }
         public string? LastModified { get; set; }
-
         public virtual User? User { get; set; }
     }
 }

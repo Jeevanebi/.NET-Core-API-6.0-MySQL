@@ -15,11 +15,13 @@ namespace APIService.Controllers
     [ApiController]
     public class FileController : ControllerBase
     {
+        private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly ApplicationDbContext _context;
         private readonly IFileService _fileService;
 
-        public FileController(ApplicationDbContext context, IFileService fileService)
+        public FileController(ApplicationDbContext context, IFileService fileService, IWebHostEnvironment webHostEnvironment)
         {
+            _webHostEnvironment = webHostEnvironment;
             _context = context;
             _fileService = fileService;
         }
@@ -82,6 +84,20 @@ namespace APIService.Controllers
         public IActionResult PostUserfile([FromForm] Userfile userfile)
         {
             _fileService.uploadFile(userfile);
+            if(userfile.FileData.Length > 0)
+            {
+                try
+                {
+                    if(!Directory.Exists(_webHostEnvironment.WebRootPath + "\\blobFolder\\"))
+                    {
+                        Directory.CreateDirectory(_webHostEnvironment.WebRootPath + "\\blobFolder\\");
+                    }
+                }
+                catch(Exception ex)
+                {
+
+                }
+            }
             return CreatedAtAction("GetUserfile", new { id = userfile.FileId }, userfile);
         }
 

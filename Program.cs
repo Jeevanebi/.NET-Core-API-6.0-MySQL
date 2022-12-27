@@ -24,6 +24,7 @@ x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 
 builder.Services.AddScoped<IAuthService,AuthService>();
 builder.Services.AddScoped<IUserService,UserService>();
+builder.Services.AddScoped<IFileService,FileService>();
 
 var app = builder.Build();
 

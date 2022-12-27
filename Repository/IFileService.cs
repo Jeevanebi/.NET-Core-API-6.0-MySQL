@@ -6,7 +6,7 @@ namespace APIService.Repository
     {
         Task<Userfile> GetFile(Userfile fileObj);
 
-        string uploadFile(Userfile fileObj);
+        Userfile uploadFile(Userfile fileObj);
 
         Task DeleteFile(string path);
 
